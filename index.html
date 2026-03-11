@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MiticalCraft</title>
+
+<style>
+body{
+    background-image:url("fondo.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    font-family:Arial;
+    color:white;
+    margin:0;
+}
+
+/* barra izquierda */
+.sidebar{
+    position:absolute;
+    left:20px;
+    top:20px;
+    width:200px;
+    background:rgba(0,0,0,0.85);
+    padding:15px;
+    border-radius:10px;
+    font-size:14px;
+}
+
+/* colores de rangos */
+.admin{
+    color:#3c3c3c;
+    font-weight:bold;
+}
+
+.staff{
+    color:#55cfff;
+    font-weight:bold;
+}
+
+.miembro{
+    color:#d9d9d9;
+}
+
+.user{
+    color:#b87333;
+}
+
+/* espada pequeña */
+.espada{
+    width:14px;
+    vertical-align:middle;
+    margin-right:5px;
+}
+
+/* contenido principal */
+.contenido{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* barra central */
+.barra{
+    display:flex;
+    gap:40px;
+    align-items:center;
+    background:rgba(0,0,0,0.75);
+    padding:25px 40px;
+    border-radius:12px;
+}
+
+/* servidor */
+.servidor{
+    background:rgba(255,255,255,0.15);
+    padding:10px;
+    border-radius:8px;
+}
+
+.estado{
+    margin-top:10px;
+    font-weight:bold;
+}
+
+button{
+    background:#4CAF50;
+    border:none;
+    padding:6px 10px;
+    color:white;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+button:hover{
+    background:#45a049;
+}
+
+.footer{
+    position:fixed;
+    bottom:10px;
+    left:10px;
+    font-size:13px;
+}
+</style>
+
+<script>
+function copiar(texto){
+navigator.clipboard.writeText(texto);
+alert("Copiado");
+}
+
+async function revisarServidor(){
+
+let ip = "mc.miticalcraft.com";
+
+let respuesta = await fetch("https://api.mcsrvstat.us/2/" + ip);
+let datos = await respuesta.json();
+
+if(datos.online){
+
+document.getElementById("estado").innerText = "🟢 Servidor ONLINE";
+document.getElementById("jugadores").innerText =
+"Jugadores: " + datos.players.online + "/" + datos.players.max;
+
+}else{
+
+document.getElementById("estado").innerText = "🔴 Servidor OFFLINE";
+document.getElementById("jugadores").innerText = "Jugadores: 0";
+
+}
+
+}
+
+window.onload = revisarServidor;
+</script>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h3>Servidor</h3>
+
+Servidor con generación diferente más increíble.<br>
+Incluye dungeons, ruinas, glaciares, etc.
+
+<br><br>
+
+<h3>Rangos</h3>
+
+<div class="admin">
+<img class="espada" src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/0/0f/Netherite_Sword_JE2_BE2.png">
+Administrador: Maxmabyte
+</div>
+
+<br>
+
+<div class="staff">
+🗡 Staff: No hay miembros
+</div>
+
+<br>
+
+<div class="miembro">
+🗡 MiembroMitical: No hay miembros
+</div>
+
+<br>
+
+<div class="user">
+🗡 User: Varios jugadores
+</div>
+
+</div>
+
+<div class="contenido">
+
+<div class="barra">
+
+<div>
+<h2>MiticalCraft</h2>
+<p>Canal de Minecraft</p>
+
+<a href="https://www.youtube.com/@Miticalcraft" target="_blank">
+<button>Ver canal</button>
+</a>
+</div>
+
+<div class="servidor">
+
+<b>Java</b><br>
+mc.miticalcraft.com
+<button onclick="copiar('mc.miticalcraft.com')">Copiar</button>
+
+<br><br>
+
+<b>Puerto</b><br>
+25914
+<button onclick="copiar('25914')">Copiar</button>
+
+<div class="estado" id="estado">Revisando servidor...</div>
+<div id="jugadores"></div>
+
+</div>
+
+<div>
+<h3>¿Cómo registrarse?</h3>
+
+<a href="https://www.youtube.com/watch?v=KUg83Tdhjsc" target="_blank">
+<button>Ver tutorial</button>
+</a>
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+MiticalCraft 2026 - Todos los derechos reservados
+</div>
+
+</body>
+</html>
